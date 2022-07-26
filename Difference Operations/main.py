@@ -23,4 +23,13 @@ You can print letters in any case (upper or lower).
 t =  int(input())
 
 for case in range(t):
+    n = int(input())
+    numbers = list(map(int, input().split()))
     
+    base_number = numbers[0]
+    answer = "YES"
+    for i in range(1, n):
+        if numbers[i]%base_number != 0:
+            answer = "NO"
+            break
+    print(answer)

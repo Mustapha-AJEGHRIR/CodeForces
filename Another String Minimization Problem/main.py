@@ -19,6 +19,7 @@ Output
 For each test case, print a string of length m — the lexicographically smallest string you can get. Each character of the string should be either capital English letter A or capital English letter B.
 """
 
+
 t = int(input())
 for case in range(t):
     n, m = map(int, input().split())

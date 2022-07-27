@@ -40,24 +40,52 @@ def get_max(matrix):
 
 t = int(input())
 
+# for case in range(t):
+#     n = int(input())
+#     blocks = [int(x) for x in input().split()]
+    
+#     color_max_height = []    
+#     for color in range(n):
+#         m = max(blocks) +1
+#         matrix = get_matrix_zeros(m, n)
+#         for height in range(m): # rows of matrix
+#             for block in range(n): # colomns of matrix
+#                 if blocks[block]-1 != color : # the default value of the matrix is 0
+#                     continue 
+#                 else :
+#                     value = 1
+#                     i, j = height, block
+#                     while j-1>=0 and i-1>=0:
+#                         value = max(value, matrix[i-1][j-1] + 1)
+#                         j = j-2
+#                     matrix[height][block] = value
+#         # print("\t", color, "\t\n", matrix)
+#         color_max_height.append(int(get_max(matrix)))
+#     print(*color_max_height)
+
 for case in range(t):
     n = int(input())
     blocks = [int(x) for x in input().split()]
     
     color_max_height = []    
     for color in range(n):
-        matrix = get_matrix_zeros(n, n)
-        for height in range(n): # rows of matrix
-            for block in range(n): # colomns of matrix
-                if blocks[block]-1 != color : # the default value of the matrix is 0
-                    continue 
-                else :
-                    value = 1
-                    i, j = height, block
-                    while j-1>=0 and i-1>=0:
-                        value = max(value, matrix[i-1][j-1] + 1)
-                        j = j-2
-                    matrix[height][block] = value
+        tower_heights = [0]*n
+        for block in range(n): 
+            if blocks[block]-1 != color : # the default value of height is 0
+                continue 
+            else :
+                # value = 1
+                # candidats = tower_heights[:block]
+                # candidats.reverse()
+                # candidats = candidats[::2]
+                # best_candidats = max(candidats) if len(candidats) > 0 else 0
+                # value = max(value, best_candidats + 1)
+                value = 1
+                i = block
+                while i-1>=0:
+                    value = max(value, tower_heights[i-1] + 1)
+                    i = i-2
+                tower_heights[block] = value
         # print("\t", color, "\t\n", matrix)
-        color_max_height.append(int(get_max(matrix)))
+        color_max_height.append(int(max(tower_heights)))
     print(*color_max_height)

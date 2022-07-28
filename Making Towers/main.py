@@ -38,7 +38,6 @@ def get_max(matrix):
                 maxi = matrix[i][j]
     return maxi
 
-t = int(input())
 
 # for case in range(t):
 #     n = int(input())
@@ -89,6 +88,8 @@ t = int(input())
 #         # print("\t", color, "\t\n", matrix)
 #         color_max_height.append(int(max(tower_heights)))
 #     print(*color_max_height)
+
+t = int(input())
 
 for case in range(t):
     n = int(input())

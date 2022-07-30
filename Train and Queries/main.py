@@ -42,61 +42,21 @@ You can output YES and NO in any case (for example, strings yEs, yes, Yes and YE
 
 t = int(input())
 
-
 for case in range(t):
     input() # empty line
     n, k = map(int, input().split())
     
-    # stations = list(map(int, input().split()))
     stations = input().split()
     
-    # --------------------------- collect the positions -------------------------- #
-    # positions = {station : [None, None] for station in set(stations)}
-    # for i in range(n):
-    #     limits = positions[stations[i]]
-    #     if limits[0] is None:
-    #         limits[0] = i       # The fisrt found index
-    #         limits[1] = i
-    #     else:
-    #         limits[1] = i       # The last found index
     l_positions = {str(station) : n for station in set(stations)}
     r_positions = {str(station) : -1 for station in set(stations)}
     for i, id in enumerate(stations):
         l_positions[str(id)] = min(l_positions[str(id)], i)
         r_positions[str(id)] = i
         
-    # # ------------------------------ sort positions ------------------------------ #
-    # for station in positions:
-    #     positions[station].sort()
-        
-    # ----------------------- make the verification faster ----------------------- #
-    # positions_set = set(positions.keys())
-    
     for query in range(k):
-        # l_sta, r_sta = map(int, input().split())
         l_sta, r_sta = input().split()
         if l_positions.get(l_sta, n) > r_positions.get(r_sta, -1):
             print("NO")
         else:
             print("YES")
-        
-    # for query in range(k):
-    #     l_sta, r_sta = map(int, input().split())
-    #     # possible = False
-    #     # if l_sta in positions and r_sta in positions:
-    #         # for l_pos in positions[l_sta]:
-    #         #     for r_pos in positions[r_sta]:
-    #         #         if l_pos < r_pos :
-    #         #             possible = True
-    #         #             break
-    #         #     else:
-    #         #         # inner loop was not broken
-    #         #         continue
-    #         #     # inner loop was broken, break outer loop
-    #         #     break 
-    #     l_pos = positions.get(l_sta, [1e10])[0]
-    #     r_pos = positions.get(r_sta, [-1])[-1]
-    #     print("YES" if l_pos < r_pos else "NO")
-    #     # else : 
-    #     #     print("NO")
-    

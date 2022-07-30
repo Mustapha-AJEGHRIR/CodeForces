@@ -26,3 +26,14 @@ for case in range(t):
     n = int(input())
     permutations = list(map(int, input().split()))
     
+    counter = 0
+    split = False
+    for i in range(1, n):
+        if split : # The previous step was a split
+            split = False
+            continue
+        left_num, right_num = permutations[i-1], permutations[i]
+        if left_num > right_num:
+            counter += 1
+            split = True
+    print(counter)

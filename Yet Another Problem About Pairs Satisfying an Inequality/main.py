@@ -15,3 +15,47 @@ For each test case, output a single integer — the number of pairs of indices s
 
 Please note, that the answer for some test cases won't fit into 32-bit integer type, so you should use at least 64-bit integer type in your programming language (like long long for C++).
 """
+
+
+
+def count_lower_than(numbers, number, start=0, end=None):
+    """Binary search over the id in the numbers array that is lower than number.
+    """
+    left_id = start
+    right_id = len(numbers) - 1 if end is None else end 
+    # left = numbers[left_id]
+    right = numbers[right_id][1]
+    
+    if right < number :
+        return len(numbers)
+    
+    while left_id != right_id:
+        mid = (left_id + right_id) // 2
+        
+        if numbers[mid][1] < number:
+            left_id = mid + 1
+        else:
+            right_id = mid
+    return left_id
+
+
+t = int(input())
+
+for case in range(t):
+    n = int(input())
+    numbers = list(map(int, input().split()))
+    
+    zipped_numbers = zip(numbers, range(1, n+1))     # pairs of (a_i , i)
+    
+    filtered_numbers = list(filter(lambda x: x[0] < x[1], zipped_numbers))  # filter with condition a_i < i
+    
+    n_prime = len(filtered_numbers) 
+    
+    counter = 0
+    for i in range(n_prime-1, -1, -1):
+        a = filtered_numbers[i][0]
+        counter += count_lower_than(filtered_numbers, a, end = i)
+        
+    print(counter)
+    
+    

@@ -25,4 +25,36 @@ For each test case, print a single integer — the minimum number of additional 
 t = int(input())
 
 for case in range(t):
-    pass
+    n = int(input())
+    heights = list(map(int, input().split()))
+    
+    if n % 2 == 1: # Only one possible configuration for odd number of buildings
+        cost = 0
+        for i in range(1, n-1, 2):    # 1 to n-1, jump the gap each time
+            cost += max(0, max(heights[i-1], heights[i+1]) - heights[i] + 1)
+        print(cost)
+    else : 
+        """
+        We have a lot of configurations here, we have the right to jump 1 more building among the ones we have to build.
+        """
+        # cost_first = [max(heights[i-1], heights[i+1]) - heights[i] + 1 for i in range(1, n, 2)]
+        # cost_end = [max(heights[i-1], heights[i+1]) - heights[i] + 1 for i in range(2, n, 2)]
+        cum_cost_first = []
+        cum_cost_end = []
+        
+        cum_cost = 0
+        for i in range(1, n-1, 2):
+            cum_cost += max(0, max(heights[i-1], heights[i+1]) - heights[i] + 1)
+            cum_cost_first.append(cum_cost)
+            
+        cum_cost = 0
+        for i in range(n-1 -1, 1, -2):
+            cum_cost += max(0, max(heights[i-1], heights[i+1]) - heights[i] + 1)
+            cum_cost_end.append(cum_cost)
+        cum_cost_end.reverse()
+        
+        # find the best split
+        min_cost = min(cum_cost_first[-1], cum_cost_end[0])
+        for i in range(1, len(cum_cost_first)):
+            min_cost = min(min_cost, cum_cost_first[i-1] + cum_cost_end[i])
+        print(min_cost)
